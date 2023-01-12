@@ -1,0 +1,47 @@
+<div class="login-register">
+  <div class="login-register-panel">
+    <div class="grid">
+      <div class="col-6">
+        <img src="assets/login-photo.png" alt="">
+      </div>
+      <div class="col-6">
+        <h3>Welcome!</h3>
+        <h2>Login Page</h2>
+        <form [formGroup]="loginForm">
+          <div class="grid mt-6 p-2">
+            <div class="col-12">
+              <div class="p-inputgroup">
+                <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+                <input type="text" pInputText placeholder="Email" formControlName="email">
+              </div>
+            </div>
+            <div class="col-12">
+              <small class="p-error" *ngIf="loginForm.controls['email'].errors?.['required'] && formSubmitted">Email
+                is
+                required</small>
+              <small class="p-error" *ngIf="loginForm.controls['email'].errors?.['email'] && formSubmitted">Email is
+                not valid</small>
+            </div>
+            <div class="col-12">
+              <div class="p-inputgroup">
+                <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+                <input type="password" pInputText placeholder="password" formControlName="password">
+              </div>
+            </div>
+            <div class="col-12"> <small class="p-error"
+                *ngIf="loginForm.controls['password'].errors?.['required'] && formSubmitted">Password
+                is
+                required</small>
+            </div>
+            <div class="col-12">
+              <p-button label="Submit" styleClass="w-full" (onClick)="submit()"></p-button>
+            </div>
+            <div class="col-12 text-center">
+              <small class="p-error" *ngIf="authError!='' && formSubmitted">{{authError}}</small>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

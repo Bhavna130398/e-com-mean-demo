@@ -1,0 +1,110 @@
+<p-toast></p-toast>
+<div class="admin-page">
+  <p-card [header]="editMode ? 'Edit user' : 'Add user'" subheader="You can add or edit user here">
+    <div class="p-grid">
+      <div class="p-col-12">
+        <p-toolbar>
+          <div class="p-toolbar-group-right"></div>
+          <div class="p-toolbar-group-right">
+            <p-button styleClass="p-button-primary mr-2" [label]="editMode ? 'Update' : 'Create'" icon="pi pi-plus"
+              (click)="onSubmit()">
+            </p-button>
+            <p-button styleClass="p-button-secondary" label="Cancel" icon="pi pi-arrow-left" (click)="cancel()">
+            </p-button>
+          </div>
+        </p-toolbar>
+      </div>
+    </div>
+    <div class="p-grid">
+      <div class="p-col-12">
+        <form [formGroup]="form">
+          <div class="card">
+            <h5></h5>
+            <div class="formgrid grid">
+              <div class="field col">
+                <label for="name">Name</label>
+                <input id="name" type="text" pInputText
+                  class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                  formControlName="name" />
+                <small class="p-error" *ngIf="form.controls['name'].errors?.['required'] && formSubmitted">Name is
+                  required</small>
+              </div>
+              <div class="field col">
+                <label for="phone">Phone</label><br>
+                <p-inputMask id="phone" mask="(999) 999-9999" formControlName="phone" [style]="{ width: '100%' }">
+                </p-inputMask>
+                <small class="p-error" *ngIf="form.controls['phone'].errors?.['required'] && formSubmitted">Phone is
+                  required</small>
+              </div>
+
+              <div class="field col-4">
+                <label for="email">Email</label>
+                <input id="email" type="text" pInputText
+                  class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                  formControlName="email" />
+                <small class="p-error" *ngIf="form.controls['email'].errors?.['required'] && formSubmitted">Email is
+                  required</small>
+              </div>
+            </div>
+
+            <div class="formgrid grid">
+              <div class="field col">
+                <label for="street">Street</label>
+                <input id="street" type="text" pInputText
+                  class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                  formControlName="street" />
+                <small class="p-error" *ngIf="form.controls['street'].errors?.['required'] && formSubmitted">Street is
+                  required</small>
+              </div>
+
+              <div class="field col">
+                <label for="city">City</label>
+                <input id="city" type="text" pInputText
+                  class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                  formControlName="city" />
+                <small class="p-error" *ngIf="form.controls['city'].errors?.['required'] && formSubmitted">City is
+                  required</small>
+              </div>
+
+              <div class="field col">
+                <label for="isAdmin">Is Admin</label> <br />
+                <p-inputSwitch formControlName="isAdmin"></p-inputSwitch>
+              </div>
+            </div>
+
+            <div class="formgrid grid">
+              <div class="field col">
+                <label for="apartment">Apartment</label>
+                <input id="apartment" type="text" pInputText
+                  class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                  formControlName="apartment" />
+                <small class="p-error"
+                  *ngIf="form.controls['apartment'].errors?.['required'] && formSubmitted">Apartment is
+                  required</small>
+              </div>
+
+
+              <div class="field col">
+                <label for="zip">Zip</label>
+                <input id="zip" type="text" pInputText
+                  class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                  formControlName="zip" />
+                <small class="p-error" *ngIf="form.controls['zip'].errors?.['required'] && formSubmitted">Zip is
+                  required</small>
+              </div>
+            </div>
+            <div class="formgrid grid">
+              <div class="field col">
+                <label for="country">Country</label><br />
+                <p-dropdown [options]="countries" optionValue="id" formControlName="country" optionLabel="name"
+                  filterBy="name" [filter]="true" placeholder="Select a country" [showClear]="true"></p-dropdown>
+                <small class="p-error" *ngIf="form.controls['country'].errors?.['required'] && formSubmitted">country
+                  is required</small>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </p-card>
+</div>
