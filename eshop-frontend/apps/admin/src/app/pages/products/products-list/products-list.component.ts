@@ -10,8 +10,12 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 })
 export class ProductsListComponent implements OnInit {
   products: any = [];
-  constructor(private productService: ProductsService, private router: Router,
-    private confirmationService: ConfirmationService, private messageService: MessageService) { }
+  constructor(
+    private productService: ProductsService,
+    private router: Router,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
+  ) {}
 
   ngOnInit(): void {
     this.getProducts();
@@ -33,7 +37,7 @@ export class ProductsListComponent implements OnInit {
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         this.productService.deleteProduct(productId).subscribe(
-          (response) => {
+          () => {
             this.getProducts();
             this.messageService.add({
               severity: 'success',
@@ -49,8 +53,7 @@ export class ProductsListComponent implements OnInit {
             });
           }
         );
-      },
-      reject: () => { }
+      }
     });
   }
 }

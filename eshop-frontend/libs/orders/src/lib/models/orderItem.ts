@@ -1,4 +1,4 @@
-export class orderItems {
-  product?: string;
-  quantity?: string
+export class OrderItems {
+  product?: string | null;
+  quantity?: string | null;
 }

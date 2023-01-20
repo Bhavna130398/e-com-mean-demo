@@ -4,46 +4,45 @@ import { Order, OrderService } from '@eshop-frontend/orders';
 import { ConfirmationService, MessageService } from 'primeng/api';
 
 const ORDER_STATUS = {
-  Pending: {
+  0: {
     label: 'Pending',
     color: 'primary'
   },
-  pending: {
-    label: 'Pending',
-    color: 'primary'
-  },
-  Processed: {
+
+  1: {
     label: 'Processed',
     color: 'warning'
   },
-  Shipped: {
+  2: {
     label: 'Shipped',
     color: 'success'
   },
-  Delivered: {
+  3: {
     label: 'Delivered',
     color: 'success'
   },
-  Failed: {
+  4: {
     label: 'Failed',
     color: 'danger'
   }
-}
+};
 @Component({
   selector: 'admin-order-list',
   templateUrl: './order-list.component.html',
-  styles: [
-  ]
+  styles: []
 })
-
 export class OrderListComponent implements OnInit {
   orders: Order[] = [];
   orderStatus = ORDER_STATUS;
-  constructor(private orderService: OrderService, private router: Router, private confirmationService: ConfirmationService, private messageService: MessageService) { }
+  constructor(
+    private orderService: OrderService,
+    private router: Router,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
+  ) {}
 
   ngOnInit(): void {
     this._getOrders();
-
   }
   showOrderDetails(orderId: string) {
     this.router.navigateByUrl(`/order/${orderId}`);
@@ -55,7 +54,7 @@ export class OrderListComponent implements OnInit {
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         this.orderService.deleteOrder(orderId).subscribe(
-          (response) => {
+          () => {
             this._getOrders();
             this.messageService.add({
               severity: 'success',
@@ -71,13 +70,12 @@ export class OrderListComponent implements OnInit {
             });
           }
         );
-      },
-      reject: () => { }
+      }
     });
   }
   _getOrders() {
-    this.orderService.getOrders().subscribe(orders => {
+    this.orderService.getOrders().subscribe((orders) => {
       this.orders = orders;
-    })
+    });
   }
 }

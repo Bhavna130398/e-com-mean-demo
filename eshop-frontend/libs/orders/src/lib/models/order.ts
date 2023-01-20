@@ -1,16 +1,17 @@
-import { orderItems } from "./orderItem";
+import { User } from '@eshop-frontend/users';
+import { OrderItems } from './orderItem';
 
 export class Order {
   id?: string;
-  orderItems?: orderItems;
-  shippingAddress1?: string
-  shippingAddress2?: string
+  orderItems?: OrderItems[];
+  shippingAddress1?: string;
+  shippingAddress2?: string;
   city?: string;
   zip?: string;
   country?: string;
-  phone?: string
-  status?: string;
+  phone?: string;
+  status?: number;
   totalprice?: string;
-  user?: string;
-  dataOrdered?: string
+  user?: any;
+  dateOrdered?: string;
 }

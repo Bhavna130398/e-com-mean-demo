@@ -6,20 +6,27 @@ import { User, UsersService } from '@eshop-frontend/users';
 import { MessageService } from 'primeng/api';
 import { timer } from 'rxjs';
 import * as i18nIsoCountries from 'i18n-iso-countries';
+import { OrderService } from '@eshop-frontend/orders';
 
 @Component({
   selector: 'admin-user-form',
   templateUrl: './user-form.component.html',
-  styles: [
-  ]
+  styles: []
 })
 export class UserFormComponent implements OnInit {
   editMode = false;
   formSubmitted = false;
   form: FormGroup;
-  currentUserId: String;
+  currentUserId: string;
   countries = [];
-  constructor(private fb: FormBuilder, private userService: UsersService, private messageService: MessageService, private location: Location, private route: ActivatedRoute) { }
+  constructor(
+    private fb: FormBuilder,
+    private userService: UsersService,
+    private messageService: MessageService,
+    private location: Location,
+    private route: ActivatedRoute,
+    private orderService: OrderService
+  ) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -33,7 +40,7 @@ export class UserFormComponent implements OnInit {
       apartment: ['', Validators.required],
       city: ['', Validators.required],
       country: ['', Validators.required],
-      zip: ['', Validators.required],
+      zip: ['', Validators.required]
     });
     this._checkEditMode();
     this._getCountries();
@@ -42,14 +49,14 @@ export class UserFormComponent implements OnInit {
     this.formSubmitted = true;
     if (this.form.invalid) return;
     if (this.editMode) {
-      this._updateProduct(this.form.value)
+      this._updateProduct(this.form.value);
     } else {
       this._createUser(this.form.value);
     }
   }
   private _createUser(userData: User) {
     this.userService.createUser(userData).subscribe(
-      (response: User) => {
+      () => {
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
@@ -57,11 +64,11 @@ export class UserFormComponent implements OnInit {
         });
         timer(2000)
           .toPromise()
-          .then((done) => {
+          .then(() => {
             this.location.back();
           });
       },
-      (err) => {
+      () => {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
@@ -72,7 +79,7 @@ export class UserFormComponent implements OnInit {
   }
   private _updateProduct(userData: User) {
     this.userService.updateUser(this.currentUserId, userData).subscribe(
-      (response) => {
+      () => {
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
@@ -80,11 +87,11 @@ export class UserFormComponent implements OnInit {
         });
         timer(2000)
           .toPromise()
-          .then((done) => {
+          .then(() => {
             this.location.back();
           });
       },
-      (err) => {
+      () => {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
@@ -102,22 +109,18 @@ export class UserFormComponent implements OnInit {
     });
   }
   private _getCountries() {
-    i18nIsoCountries.registerLocale(require("i18n-iso-countries/langs/en.json"));
-    this.countries = Object.entries(i18nIsoCountries.getNames("en", { select: "official" })).map(entry => {
-      return {
-        id: entry[0],
-        name: entry[1]
-      }
-    })
+    this.orderService.getCountiesJSON().subscribe((countryJson) => {
+      this.countries = countryJson;
+    });
   }
 
-  getUserById(userId: String) {
-    this.userService.getUserById(userId).subscribe(user => {
-      this.currentUserId = user.id;
-      Object.keys(this.form.controls).map(key => {
-        this.form.controls[key].setValue(user[key])
-      })
-    })
+  getUserById(userId: string) {
+    this.userService.getUserById(userId).subscribe((user) => {
+      this.currentUserId = user.id as string;
+      Object.keys(this.form.controls).map((key) => {
+        this.form.controls[key].setValue(user[key]);
+      });
+    });
   }
   cancel() {
     this.location.back();

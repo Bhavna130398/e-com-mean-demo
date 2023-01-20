@@ -17,10 +17,14 @@
     </div>
     <div class="p-grid">
       <div class="p-col-12">
-        <p-table [value]="products" [paginator]="true" [rows]="10" styleClass="p-datatable-gridlines">
+        <p-table
+          [value]="products"
+          [paginator]="true"
+          [rows]="10"
+          styleClass="p-datatable-gridlines"
+        >
           <ng-template pTemplate="header">
             <tr>
-              <!-- <th>Id</th> -->
               <th pSortableColumn="name">Name <p-sortIcon></p-sortIcon></th>
               <th pSortableColumn="image">Image <p-sortIcon></p-sortIcon></th>
               <th pSortableColumn="price">Price <p-sortIcon></p-sortIcon></th>

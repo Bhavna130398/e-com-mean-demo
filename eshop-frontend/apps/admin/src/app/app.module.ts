@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AppRoutingModule } from './app.routing.module';
 
 import { AppComponent } from './app.component';
 import { JwtInterceptor, UsersModule } from '@eshop-frontend/users';
@@ -36,7 +37,6 @@ import { EditorModule } from 'primeng/editor';
 import { TagModule } from 'primeng/tag';
 import { InputMaskModule } from 'primeng/inputmask';
 import { FieldsetModule } from 'primeng/fieldset';
-import { AppRoutingModule } from './app.routing.module';
 
 const UX_MODULE = [
   CardModule,
@@ -54,9 +54,8 @@ const UX_MODULE = [
   EditorModule,
   TagModule,
   InputMaskModule,
-  FieldsetModule,
+  FieldsetModule
 ];
-
 
 @NgModule({
   declarations: [
@@ -83,8 +82,12 @@ const UX_MODULE = [
     ReactiveFormsModule,
     ...UX_MODULE
   ],
-  providers: [MessageService, ConfirmationService, { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }],
+  providers: [
+    MessageService,
+    ConfirmationService,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent],
   exports: [ProductsListComponent, ProductsFormComponent]
 })
-export class AppModule { }
+export class AppModule {}

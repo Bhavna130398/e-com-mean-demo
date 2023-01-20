@@ -12,8 +12,8 @@ import { timer } from 'rxjs';
 })
 export class CategoriesFormComponent implements OnInit {
   form!: FormGroup;
-  formSubmitted: boolean = false;
-  editMode: boolean = false;
+  formSubmitted = false;
+  editMode = false;
   currentCategoryId: any;
   constructor(
     private fb: FormBuilder,
@@ -21,7 +21,7 @@ export class CategoriesFormComponent implements OnInit {
     private messageService: MessageService,
     private location: Location,
     private route: ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -60,7 +60,7 @@ export class CategoriesFormComponent implements OnInit {
   }
   private _addCategory(category: Category) {
     this.cs.createCategory(category).subscribe(
-      (response: Category) => {
+      () => {
         this.messageService.add({
           severity: 'success',
           summary: 'Category',
@@ -68,11 +68,11 @@ export class CategoriesFormComponent implements OnInit {
         });
         timer(2000)
           .toPromise()
-          .then((done) => {
+          .then(() => {
             this.location.back();
           });
       },
-      (err) => {
+      () => {
         this.messageService.add({
           severity: 'error',
           summary: 'Category',
@@ -83,7 +83,7 @@ export class CategoriesFormComponent implements OnInit {
   }
   private _updateCategory(category: Category) {
     this.cs.updateCategory(category).subscribe(
-      (response) => {
+      () => {
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
@@ -95,7 +95,7 @@ export class CategoriesFormComponent implements OnInit {
             this.location.back();
           });
       },
-      (err) => {
+      () => {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',

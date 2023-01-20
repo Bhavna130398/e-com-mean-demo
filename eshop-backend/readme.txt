@@ -25,7 +25,7 @@ phone: number
 status:string
 totatlPrice:number
 user: user
-dataOrdered:Date
+dateOrdered:Date
 
 Category=> Collection 
 id: string

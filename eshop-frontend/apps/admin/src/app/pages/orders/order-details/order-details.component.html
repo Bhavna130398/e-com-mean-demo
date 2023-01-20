@@ -5,21 +5,26 @@
       <div class="grid">
         <div class="col-4">
           <h5>Order Id</h5>
-          <p>{{order?.id}}</p>
+          <p>{{ order?.id }}</p>
         </div>
         <div class="col-4">
           <h5>Order Date</h5>
-          <p>{{order?.dataOrdered | date: 'short'}}</p>
+          <p>{{ order?.dateOrdered | date: 'short' }}</p>
         </div>
         <div class="col-4">
           <h5>Order Status</h5>
-          <p-dropdown [options]="status" optionLabel="label" optionValue="label" (onChange)="onstatusChange($event)"
-            [(ngModel)]="selectedStatus">
+          <p-dropdown
+            [options]="status"
+            optionLabel="label"
+            optionValue="key"
+            (onChange)="onStatusChange($event)"
+            [(ngModel)]="selectedStatus"
+          >
           </p-dropdown>
         </div>
         <div class="col-4">
           <h5>Order Total Price</h5>
-          <p>{{order?.totalprice | currency}}</p>
+          <p>{{ order?.totalprice | currency }}</p>
         </div>
       </div>
     </p-fieldset>
@@ -27,35 +32,33 @@
       <div class="grid" *ngFor="let items of order.orderItems">
         <div class="col-2">
           <h5>Name</h5>
-          <p>{{items?.product.name}}</p>
+          <p>{{ items?.product.name }}</p>
         </div>
         <div class="col-2">
           <h5>Brand</h5>
-          <p>{{items?.product.brand}}</p>
+          <p>{{ items?.product.brand }}</p>
         </div>
         <div class="col-2">
           <h5>Category</h5>
-          <p> {{items?.product.category.name}}</p>
+          <p>{{ items?.product.category.name }}</p>
         </div>
         <div class="col-2">
           <h5>Price</h5>
-          <p>{{items?.product.price | currency}}</p>
+          <p>{{ items?.product.price | currency }}</p>
         </div>
         <div class="col-2">
           <h5>Quantity</h5>
-          <p>{{items.quantity}}</p>
+          <p>{{ items.quantity }}</p>
         </div>
         <div class="col-2">
           <h5>Subtotal</h5>
-          <p>{{items?.product.price* items.quantity | currency}}</p>
+          <p>{{ items?.product.price * items.quantity | currency }}</p>
         </div>
       </div>
-      <div class="grid" style="color:green">
-        <div class="col-2 col-offset-8 font-bold">
-          Total Price
-        </div>
+      <div class="grid" style="color: green">
+        <div class="col-2 col-offset-8 font-bold">Total Price</div>
         <div class="col-2 font-bold">
-          {{order.totalprice | currency}}
+          {{ order.totalprice | currency }}
         </div>
       </div>
     </p-fieldset>
@@ -63,15 +66,18 @@
       <div class="grid">
         <div class="col-4">
           <h5>Order Address</h5>
-          <p>{{order?.shippingAddress1}}<br /> {{order?.city}}{{order?.country}} {{order?.zip}}</p>
+          <p>
+            {{ order?.shippingAddress1 }}<br />
+            {{ order?.city }}{{ order?.country }} {{ order?.zip }}
+          </p>
         </div>
         <div class="col-4">
           <h5>Customer Info</h5>
-          <p>{{order?.user.name}}</p>
+          <p>{{ order?.user.name }}</p>
         </div>
         <div class="col-4">
           <h5>Contact Info</h5>
-          <p>{{order?.phone}}</p>
+          <p>{{ order?.phone }}</p>
         </div>
       </div>
     </p-fieldset>

@@ -1,5 +1,11 @@
 header {
-  margin-bottom: 25px;
+  background: #e4dede;
+  margin-bottom: 12px;
+
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 1;
 
   .logo {
     img {
@@ -7,19 +13,9 @@ header {
     }
   }
 
-  .search {
-    padding-top: 25px;
-  }
-
-  .navigation {
-    padding-top: 14px;
-  }
-
-  .tool {
-    padding-top: 31px;
-
-    .pi {
-      margin-right: 10px;
-    }
-  }
+  // .tool {
+  //   .pi {
+  //     margin-right: 10px;
+  //   }
+  // }
 }

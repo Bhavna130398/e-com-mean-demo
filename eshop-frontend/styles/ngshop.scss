@@ -1,5 +1,6 @@
 // Base Config
 @import '~normalize.css/normalize.css';
+@import '~bootstrap/dist/css/bootstrap.css';
 @import './base/colors.scss';
 @import './base/fonts.scss';
 @import './base/mixins.scss';
@@ -26,9 +27,20 @@
 @import './libs/users/users.scss';
 @import './libs/ui/ui.scss';
 
-.container {
-  width: 1200px;
-  padding: 15px;
-  margin: 0 auto;
+.ng-shop-container {
+  height: 100vh;
+  width: 100%;
   background-color: var(--surface-100);
+}
+.grid {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+.checkout-button {
+  button {
+    width: 100% !important;
+  }
+}
+.p-dropdown {
+  width: 100%;
 }

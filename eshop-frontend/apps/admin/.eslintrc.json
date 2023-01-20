@@ -21,7 +21,7 @@
           "error",
           {
             "type": "element",
-            "prefix": "eshop-frontend",
+            "prefix": "admin",
             "style": "kebab-case"
           }
         ]

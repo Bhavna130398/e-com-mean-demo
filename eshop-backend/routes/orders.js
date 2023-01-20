@@ -6,7 +6,7 @@ const router = express.Router();
 router.get(`/`, async (req, res) => {
   const orderList = await Order.find()
     .populate("user", "name")
-    .sort({ dataOrdered: -1 });
+    .sort({ dateOrdered: -1 });
   if (!orderList) {
     res.status(500).json({ success: false });
   }
@@ -64,7 +64,7 @@ router.post(`/`, async (req, res) => {
       status: req.body.status,
       totalprice: totalPrice,
       user: req.body.user,
-      dataOrdered: req.body.dataOrdered,
+      dateOrdered: req.body.dateOrdered,
     });
     order = await order.save();
     if (!order) {
@@ -99,7 +99,7 @@ router.delete(`/:id`, async (req, res) => {
         await order.orderItems.map(async (orderItem) => {
           await OrderItem.findByIdAndRemove(orderItem);
         });
-        return res.status(200).send({message:"The order is deleted successfully!"});
+        return res.status(200).send({ message: "The order is deleted successfully!" });
       }
       return res.status(400).send("The order can not be deleted!");
     })

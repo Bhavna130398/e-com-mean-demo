@@ -8,38 +8,21 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "types": [
-      "node"
-    ],
+    "types": ["node"],
+    "typeRoots": ["../node_modules/@types"],
     "target": "es2015",
     "module": "esnext",
-    "lib": [
-      "es2017",
-      "dom"
-    ],
+    "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@eshop-frontend/orders": [
-        "libs/orders/src/index.ts"
-      ],
-      "@eshop-frontend/product": [
-        "libs/product/src/index.ts"
-      ],
-      "@eshop-frontend/ui": [
-        "libs/ui/src/index.ts"
-      ],
-      "@eshop-frontend/users": [
-        "libs/users/src/index.ts"
-      ],
-      "@env/*": [
-        "environments/*"
-      ]
+      "@env/*": ["environments/*"],
+      "@eshop-frontend/orders": ["libs/orders/src/index.ts"],
+      "@eshop-frontend/product": ["libs/product/src/index.ts"],
+      "@eshop-frontend/ui": ["libs/ui/src/index.ts"],
+      "@eshop-frontend/users": ["libs/users/src/index.ts"]
     }
   },
-  "exclude": [
-    "node_modules",
-    "tmp"
-  ]
+  "exclude": ["node_modules", "tmp"]
 }

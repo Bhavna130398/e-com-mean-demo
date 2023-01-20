@@ -1,0 +1,181 @@
+<div class="checkout-page">
+  <div>
+    <p-button label="Back to cart" icon="pi pi-arrow-left" (onClick)="backToCart()"></p-button>
+  </div>
+  <div class="d-flex">
+    <div style="flex: 1 1 70%">
+      <form [formGroup]="form">
+        <div class="formgrid grid">
+          <div class="field col">
+            <label for="name">Name</label>
+            <input
+              id="name"
+              type="text"
+              pInputText
+              formControlName="name"
+              class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            />
+            <small
+              class="p-error"
+              *ngIf="form.get('name')?.errors?.['required'] &&
+                          form.get('name')?.invalid &&
+                          (form.get('name')?.dirty ||
+                            form.get('name')?.touched)"
+              >Name is required</small
+            >
+          </div>
+          <div class="field col">
+            <label for="name">Email</label>
+            <input
+              id="email"
+              type="email"
+              pInputText
+              formControlName="email"
+              class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            />
+            <small
+              class="p-error"
+              *ngIf="form.get('email')?.errors?.['required'] &&
+                          form.get('email')?.invalid &&
+                          (form.get('email')?.dirty ||
+                            form.get('email')?.touched)"
+              >Email is required</small
+            >
+          </div>
+          <div class="field col">
+            <label for="phone">Phone</label>
+            <input
+              id="phone"
+              type="tel"
+              pInputText
+              formControlName="phone"
+              placeholder="+ 99999 99999"
+              class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            />
+            <small
+              class="p-error"
+              *ngIf="form.get('phone')?.errors?.['required'] &&
+                          form.get('phone')?.invalid &&
+                          (form.get('phone')?.dirty ||
+                            form.get('phone')?.touched) "
+              >Phone Number is required</small
+            >
+            <small class="p-error" *ngIf="form.get('phone')?.errors?.['pattern']">
+              Valid Phone Number is required
+            </small>
+          </div>
+        </div>
+        <div class="formgrid grid">
+          <div class="field col">
+            <label for="street">Street</label>
+            <input
+              id="street"
+              type="street"
+              pInputText
+              formControlName="street"
+              class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            />
+            <small
+              class="p-error"
+              *ngIf="form.get('street')?.errors?.['required'] &&
+                          form.get('street')?.invalid &&
+                          (form.get('street')?.dirty ||
+                            form.get('street')?.touched)"
+              >Street is required</small
+            >
+          </div>
+          <div class="field col">
+            <label for="apartment">Apartment</label>
+            <input
+              id="apartment"
+              type="apartment"
+              pInputText
+              formControlName="apartment"
+              class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            />
+            <small
+              class="p-error"
+              *ngIf="form.get('apartment')?.errors?.['required'] &&
+                          form.get('apartment')?.invalid &&
+                          (form.get('apartment')?.dirty ||
+                            form.get('apartment')?.touched)"
+              >Apartment is required</small
+            >
+          </div>
+        </div>
+
+        <div class="formgrid grid">
+          <div class="field col">
+            <label for="city">City</label>
+            <input
+              id="city"
+              type="city"
+              pInputText
+              formControlName="city"
+              class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            />
+            <small
+              class="p-error"
+              *ngIf="form.get('city')?.errors?.['required'] &&
+                          form.get('city')?.invalid &&
+                          (form.get('city')?.dirty ||
+                            form.get('city')?.touched)"
+              >City is required</small
+            >
+          </div>
+          <div class="field col">
+            <label for="zip">zip</label>
+            <input
+              id="zip"
+              type="tel"
+              pInputText
+              formControlName="zip"
+              placeholder="123456"
+              class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            />
+            <small
+              class="p-error"
+              *ngIf="form.get('zip')?.errors?.['required'] &&
+                          form.get('zip')?.invalid &&
+                          (form.get('zip')?.dirty ||
+                            form.get('zip')?.touched)"
+              >Zip is required</small
+            >
+          </div>
+
+          <div class="field col">
+            <label for="country">Country</label><br />
+            <p-dropdown
+              [options]="countries"
+              optionValue="id"
+              formControlName="country"
+              optionLabel="name"
+              filterBy="name"
+              [filter]="true"
+              placeholder="Select a country"
+              [showClear]="true"
+            ></p-dropdown>
+            <small
+              class="p-error"
+              *ngIf="form.get('country')?.errors?.['required'] &&
+                        form.get('country')?.invalid &&
+                        (form.get('country')?.dirty ||
+                          form.get('country')?.touched)"
+              >Country is required</small
+            >
+          </div>
+        </div>
+      </form>
+    </div>
+    <div style="flex: 1 1 30%" class="mt-5">
+      <eshop-frontend-order-summary></eshop-frontend-order-summary>
+      <p-button
+        styleClass="p-button-primary mt-2 w-full"
+        label="Place Order"
+        (click)="onSubmit()"
+        [disabled]="!form.valid"
+      >
+      </p-button>
+    </div>
+  </div>
+</div>

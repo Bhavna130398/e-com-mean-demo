@@ -7,14 +7,17 @@ import { combineLatest } from 'rxjs';
 @Component({
   selector: 'admin-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: [],
+  styleUrls: []
 })
 export class DashboardComponent implements OnInit {
   statistics = [];
-  constructor(private orderService: OrderService, private productService: ProductsService, private userService: UsersService) { }
+  constructor(
+    private orderService: OrderService,
+    private productService: ProductsService,
+    private userService: UsersService
+  ) {}
 
   ngOnInit(): void {
-
     combineLatest([
       this.orderService.getOrdersCount(),
       this.productService.getProductsCount(),
@@ -23,9 +26,5 @@ export class DashboardComponent implements OnInit {
     ]).subscribe((values) => {
       this.statistics = values;
     });
-
-
-
   }
-
 }

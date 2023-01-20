@@ -10,7 +10,7 @@ import { Order } from '../models/order';
 export class OrderService {
   apiURL = environment.apiUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getOrders(): Observable<Order[]> {
     return this.http.get<Order[]>(`${this.apiURL}orders/`);
@@ -18,8 +18,8 @@ export class OrderService {
   getOrderById(orderId: string): Observable<Order> {
     return this.http.get<Order>(`${this.apiURL}orders/${orderId}`);
   }
-  createCategory(category: Order): Observable<Order> {
-    return this.http.post<Order>(`${this.apiURL}orders`, category);
+  createOrder(order: Order): Observable<Order> {
+    return this.http.post<Order>(`${this.apiURL}orders`, order);
   }
   deleteOrder(orderId: string): Observable<Order> {
     return this.http.delete<Order>(`${this.apiURL}orders/${orderId}`);
@@ -27,8 +27,8 @@ export class OrderService {
   updateCategory(order: Order): Observable<Order> {
     return this.http.put<Order>(`${this.apiURL}orders/${order.id}`, order);
   }
-  updateOrderStatus(orderId: string, status: string): Observable<Order> {
-    return this.http.put<Order>(`${this.apiURL}orders/${orderId}`, { status: status })
+  updateOrderStatus(orderId: string, status: number): Observable<Order> {
+    return this.http.put<Order>(`${this.apiURL}orders/${orderId}`, { status: status });
   }
 
   getTotalSales(): Observable<number> {
@@ -40,5 +40,8 @@ export class OrderService {
     return this.http
       .get<number>(`${this.apiURL}orders/get/count`)
       .pipe(map((objectValue: any) => objectValue.ordersCount));
+  }
+  public getCountiesJSON(): Observable<any> {
+    return this.http.get('assets/json-data/countries.json');
   }
 }

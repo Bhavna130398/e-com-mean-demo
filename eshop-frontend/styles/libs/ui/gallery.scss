@@ -1,5 +1,9 @@
 .gallery {
-  .main-image {}
+  .main-image {
+    img {
+      width: 100%;
+    }
+  }
 
   .images {
     ul {
@@ -16,5 +20,4 @@
       }
     }
   }
-
 }

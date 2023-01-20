@@ -21,7 +21,7 @@ import { MessageService } from 'primeng/api';
 const route: Routes = [
   {
     path: 'products',
-    component: ProductListComponent,
+    component: ProductListComponent
   },
   {
     path: 'category/:categoryId',
@@ -31,9 +31,10 @@ const route: Routes = [
     path: 'products/:productId',
     component: ProductPageComponent
   }
-]
+];
 @NgModule({
-  imports: [CommonModule,
+  imports: [
+    CommonModule,
     HttpClientModule,
     ButtonModule,
     RouterModule.forChild(route),
@@ -52,7 +53,7 @@ const route: Routes = [
     ProductItemsComponent,
     FeaturedProductComponent,
     ProductListComponent,
-    ProductPageComponent,
+    ProductPageComponent
   ],
   exports: [
     ProductsSearchComponent,
@@ -60,8 +61,8 @@ const route: Routes = [
     ProductItemsComponent,
     FeaturedProductComponent,
     ProductListComponent,
-    ProductPageComponent,
+    ProductPageComponent
   ],
   providers: [ProductsSearchComponent, MessageService]
 })
-export class ProductModule { }
+export class ProductModule {}

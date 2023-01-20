@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
-import { filter, map, Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Product } from '../models/product';
 
 @Injectable({
@@ -10,7 +10,7 @@ import { Product } from '../models/product';
 export class ProductsService {
   apiURL = environment.apiUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getProducts(filterCategories?: string[]): Observable<Product[]> {
     let params = new HttpParams();
@@ -40,6 +40,9 @@ export class ProductsService {
     return this.http.get<Product[]>(`${this.apiURL}products/get/featured/${count}`);
   }
   uploadGalleryImages(productId: string, productData: FormData): Observable<Product> {
-    return this.http.put<Product>(`${this.apiURL}products/gallery-images/${productId}`, productData)
+    return this.http.put<Product>(
+      `${this.apiURL}products/gallery-images/${productId}`,
+      productData
+    );
   }
 }

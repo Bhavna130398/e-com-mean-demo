@@ -1,40 +1,25 @@
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { OrderService } from '@eshop-frontend/orders';
 import { MessageService } from 'primeng/api';
 import { timer } from 'rxjs';
 
 const ORDER_STATUS = [
-  {
-    label: 'Pending',
-    color: 'primary'
-  },
-  {
-    label: 'Processed',
-    color: 'warning'
-  },
-  {
-    label: 'Shipped',
-    color: 'success'
-  },
-  {
-    label: 'Delivered',
-    color: 'success'
-  },
-  {
-    label: 'Failed',
-    color: 'danger'
-  }
+  { key: 0, label: 'Pending', color: 'primary' },
+  { key: 1, label: 'Processed', color: 'warning' },
+  { key: 2, label: 'Shipped', color: 'success' },
+  { key: 3, label: 'Delivered', color: 'success' },
+  { key: 4, label: 'Failed', color: 'danger' }
 ];
 @Component({
   selector: 'admin-order-details',
   templateUrl: './order-details.component.html',
   styles: []
 })
-export class OrderDetailsComponent implements OnInit {
+export class OrderDetailsComponent {
   order: any;
-  status = [];
+  status: any;
   selectedStatus: any;
   constructor(
     private orderService: OrderService,
@@ -44,10 +29,8 @@ export class OrderDetailsComponent implements OnInit {
   ) {
     this.status = ORDER_STATUS;
     this._checkId();
-    console.log('test');
   }
 
-  ngOnInit(): void {}
   _getOrderById(orderId) {
     this.orderService.getOrderById(orderId).subscribe((order: any) => {
       this.order = order;
@@ -61,9 +44,9 @@ export class OrderDetailsComponent implements OnInit {
       }
     });
   }
-  onstatusChange(event) {
+  onStatusChange(event) {
     this.orderService.updateOrderStatus(this.order.id, event.value).subscribe(
-      (response) => {
+      () => {
         this.messageService.add({
           severity: 'success',
           summary: 'Status',
@@ -71,12 +54,11 @@ export class OrderDetailsComponent implements OnInit {
         });
         timer(3000)
           .toPromise()
-          .then((done) => {
+          .then(() => {
             this.location.back();
           });
-        // this.order = response;
       },
-      (err) => {
+      () => {
         this.messageService.add({
           severity: 'error',
           summary: 'Status',

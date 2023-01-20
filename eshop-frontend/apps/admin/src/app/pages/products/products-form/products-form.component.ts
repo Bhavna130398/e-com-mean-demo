@@ -13,14 +13,15 @@ import { takeUntil } from 'rxjs/operators';
   styles: []
 })
 export class ProductsFormComponent implements OnInit, OnDestroy {
-  editmode = false;
+  editMode = false;
   form: FormGroup;
   isSubmitted = false;
   catagories = [];
   imageDisplay: string | ArrayBuffer;
   currentProductId: string;
-  endsubs$: Subject<any> = new Subject();
+  endSubs$: Subject<any> = new Subject();
   galleryImages = [];
+  multipleImages = false;
   constructor(
     private formBuilder: FormBuilder,
     private productsService: ProductsService,
@@ -28,7 +29,7 @@ export class ProductsFormComponent implements OnInit, OnDestroy {
     private messageService: MessageService,
     private location: Location,
     private route: ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this._initForm();
@@ -37,8 +38,8 @@ export class ProductsFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.endsubs$.next(0);
-    this.endsubs$.complete();
+    this.endSubs$.next(0);
+    this.endSubs$.complete();
   }
 
   private _initForm() {
@@ -59,7 +60,7 @@ export class ProductsFormComponent implements OnInit, OnDestroy {
   private _getCategories() {
     this.categoriesService
       .getCategories()
-      .pipe(takeUntil(this.endsubs$))
+      .pipe(takeUntil(this.endSubs$))
       .subscribe((categories) => {
         this.catagories = categories;
       });
@@ -68,10 +69,12 @@ export class ProductsFormComponent implements OnInit, OnDestroy {
   private _addProduct(productData: FormData) {
     this.productsService
       .createProduct(productData)
-      .pipe(takeUntil(this.endsubs$))
+      .pipe(takeUntil(this.endSubs$))
       .subscribe(
         (product: Product) => {
-          console.log(product, 'product');
+          if (product.id && this.multipleImages) {
+            this.uploadMultipleImages(product.id);
+          }
           this.messageService.add({
             severity: 'success',
             summary: 'Success',
@@ -94,8 +97,9 @@ export class ProductsFormComponent implements OnInit, OnDestroy {
   }
 
   private _updateProduct(productFormData: FormData) {
-    this.productsService.updateProduct(this.currentProductId, productFormData)
-      .pipe(takeUntil(this.endsubs$))
+    this.productsService
+      .updateProduct(this.currentProductId, productFormData)
+      .pipe(takeUntil(this.endSubs$))
       .subscribe(
         () => {
           this.messageService.add({
@@ -120,13 +124,13 @@ export class ProductsFormComponent implements OnInit, OnDestroy {
   }
 
   private _checkEditMode() {
-    this.route.params.pipe(takeUntil(this.endsubs$)).subscribe((params) => {
+    this.route.params.pipe(takeUntil(this.endSubs$)).subscribe((params) => {
       if (params.id) {
-        this.editmode = true;
+        this.editMode = true;
         this.currentProductId = params.id;
         this.productsService
           .getProductById(params.id)
-          .pipe(takeUntil(this.endsubs$))
+          .pipe(takeUntil(this.endSubs$))
           .subscribe((product) => {
             this.productForm.name.setValue(product.name);
             this.productForm.category.setValue(product.category['id']);
@@ -147,18 +151,17 @@ export class ProductsFormComponent implements OnInit, OnDestroy {
   onSubmit() {
     this.isSubmitted = true;
     if (this.form.invalid) return;
-
     const productFormData = new FormData();
     Object.keys(this.productForm).map((key) => {
       productFormData.append(key, this.productForm[key].value);
     });
-    if (this.editmode) {
+    if (this.editMode) {
       this._updateProduct(productFormData);
     } else {
       this._addProduct(productFormData);
     }
   }
-  onCancle() {
+  onCancel() {
     this.location.back();
   }
 
@@ -167,7 +170,8 @@ export class ProductsFormComponent implements OnInit, OnDestroy {
       this.galleryImages = event.target.files;
       this.form.patchValue({ images: this.galleryImages });
       this.form.get('images').updateValueAndValidity();
-      if (this.editmode) {
+      this.multipleImages = true;
+      if (this.editMode) {
         this.uploadMultipleImages(this.currentProductId);
       }
     } else {
@@ -182,20 +186,18 @@ export class ProductsFormComponent implements OnInit, OnDestroy {
         fileReader.readAsDataURL(file);
       }
     }
-
   }
 
   get productForm() {
     return this.form.controls;
   }
   uploadMultipleImages(productId) {
-    console.log(this.form.get('images').value);
     const productFormData = new FormData();
     for (let i = 0; i < this.form.get('images').value.length; i++) {
       productFormData.append('images', this.form.get('images').value[i]);
     }
-    this.productsService.uploadGalleryImages(productId, productFormData).subscribe(resProduct => {
-      console.log(resProduct);
-    })
+    this.productsService.uploadGalleryImages(productId, productFormData).subscribe(() => {
+      console.log('uploadGalleryImages');
+    });
   }
 }

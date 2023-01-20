@@ -33,7 +33,7 @@ export class CategoriesComponent implements OnInit {
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         this.cs.deleteCategory(categoryId).subscribe(
-          (response) => {
+          () => {
             this.getCategories();
             this.messageService.add({
               severity: 'success',
@@ -50,7 +50,9 @@ export class CategoriesComponent implements OnInit {
           }
         );
       },
-      reject: () => {}
+      reject: (err) => {
+        console.log(err);
+      }
     });
   }
 

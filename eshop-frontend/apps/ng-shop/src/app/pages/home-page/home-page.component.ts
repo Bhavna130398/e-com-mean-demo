@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'eshop-frontend-home-page',
-  templateUrl: './home-page.component.html',
+  templateUrl: './home-page.component.html'
 })
 export class HomePageComponent implements OnInit {
   constructor() {}
